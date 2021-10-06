@@ -1,0 +1,39 @@
+{% extends 'basic.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>2 Column</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-3">
+                        <ul class="nav nav-pills flex-column" id="myTab4" role="tablist">
+                            {% for k in kategori %}
+                            <li class="nav-item">
+                                <a class="nav-link" id="{{ k.nama|lower }}-tab4" data-toggle="tab" href="#{{ k.nama|lower }}" role="tab" aria-controls="{{ k.nama|lower }}" aria-selected="true">{{ k.nama }}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-9">
+                        <div class="tab-content no-padding" id="myTab2Content">
+                            {% for k in kategori %}
+                                <div class="tab-pane fade" id="{{ k.nama|lower }}" role="tabpanel" aria-labelledby="{{ k.nama|lower }}-tab4">
+                                    {% for f in fasilitas %}
+                                        {% if f.kategori_id == k.id %}
+                                            <li>{{ f.nama }}, {{ f.kategori_id }} == {{ k.id }}</li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
