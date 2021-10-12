@@ -41,7 +41,10 @@ def login(request):
 
         if user is not None:
             auth_login(request, user)
-            return redirect('dashboard')
+            if user.is_superuser or user.is_staff:
+                return redirect('/admin')
+            else:
+                return redirect('dashboard')
         else:
             messages.info(request, 'Username atau password salah',
                           extra_tags='danger')
@@ -98,4 +101,15 @@ def fasilitas(request):
         'fasilitas': fasilitas
     }
     return render(request, 'user/fasilitas.html', konteks)
+
+@login_required
+def chat(request):
+    # tempat = Tempat.objects.all()
+    konteks = {
+        'title': 'chat',
+        'subtitle': '',
+        'active': 'chat',
+        # 'wisata': tempat,
+    }
+    return render(request, 'user/chat.html', konteks)
 # Create your views here.
