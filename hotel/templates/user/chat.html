@@ -1,5 +1,6 @@
 {% extends 'basic.html' %}
 {% load static %}
+
 {% block content %}
 <div class="row align-items-center justify-content-center">
     <div class="col-12 col-sm-12 col-lg-12">
@@ -7,7 +8,7 @@
             <div class="card-header">
             <h4>
                 <i class="fas fa-circle text-success mr-2" title="Online" data-toggle="tooltip">
-                </i> Chat with Bot</h4>
+                </i> Chat with Bot {{ user.is_staff }}</h4>
             </div>
             <div class="card-body chat-content"></div>
             <div class="card-footer chat-form">
