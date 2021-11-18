@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib.auth.hashers import make_password
+from django.utils.crypto import get_random_string
 from hotel.models import *
+
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 
 from django.contrib import messages
@@ -29,6 +33,20 @@ def register(request):
     }
     return render(request, 'registration/register.html', konteks)
 
+def guest(request):
+
+    rand = get_random_string(length=3)
+    username = 'user'+rand
+
+    user = User.objects.create_user(
+            username = 'user'+rand,
+            email = username+'@email.com',
+            password = make_password('1234678')
+        )
+    # user = authenticate(request, username=username, password=password)
+    auth_login(request, user)
+    
+    return redirect('chat');
 
 def login(request):
     form = LoginUserForm()
@@ -112,4 +130,3 @@ def chat(request):
         # 'wisata': tempat,
     }
     return render(request, 'user/chat.html', konteks)
-# Create your views here.
